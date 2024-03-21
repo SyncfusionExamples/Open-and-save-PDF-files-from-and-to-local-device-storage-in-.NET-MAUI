@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pv="clr-namespace:Syncfusion.Maui.PdfViewer;assembly=Syncfusion.Maui.PdfViewer"
+             xmlns:local="clr-namespace:OpenAndSaveLocalPDF"
+             x:Class="OpenAndSaveLocalPDF.MainPage">
+
+    <ContentPage.Resources>
+        <Style x:Key="buttonIconStyle" TargetType="Button">
+            <Setter Property="BorderWidth" Value="0" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontFamily" Value="{OnPlatform iOS=PdfViewerIcon, MacCatalyst=PdfViewerIcon, Android=PdfViewerIcon.ttf#, WinUI=PdfViewerIcon.ttf#PdfViewerIcon}" />
+            <Setter Property="TextColor" Value="#99000000"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property = "IsEnabled" Value = "True" TargetType="Button">
+                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+                <Trigger Property = "IsEnabled" Value = "False" TargetType="Button">
+                    <Setter Property="Opacity" Value="0.25" />
+                </Trigger>
+                <Trigger Property = "IsPressed" Value = "True" TargetType="Button">
+                    <Setter Property="BackgroundColor" Value="#14000000" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="50,*">
+        <Grid Grid.Row="0" BackgroundColor="#F3EDF7">
+            <Label Margin="10,0,0,0" x:Name="fileNameLabel" HorizontalOptions="Start" FontSize="15" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+            <HorizontalStackLayout HorizontalOptions="End" Spacing="5" Margin="0,0,10,0">
+                <Button x:Name="openButton" ToolTipProperties.Text="Open PDF" VerticalOptions="Center" Text="&#xe712;" FontFamily="Maui Material Assets" Style="{x:StaticResource buttonIconStyle}" Clicked="openButton_Clicked" />
+                <Button x:Name="saveAsButton" ToolTipProperties.Text="Save as" VerticalOptions="Center" Text="&#xe75f;" FontFamily="Maui Material Assets" Style="{x:StaticResource buttonIconStyle}" Clicked="saveAsButton_Clicked" />
+            </HorizontalStackLayout>
+        </Grid>
+        <Grid Grid.Row="1">
+            <pv:SfPdfViewer x:Name="pdfViewer"/>
+            <Frame CornerRadius="0" BorderColor="Transparent" x:Name="toast" InputTransparent="True" Opacity="0" Margin="0,0,0,50" BackgroundColor="Black" Padding="10" HorizontalOptions="Center" VerticalOptions="End" MinimumHeightRequest="40">
+                <Label x:Name="toastLabel" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="White" />
+            </Frame>
+            <Grid x:Name="initialMessage" BackgroundColor="#F3EDF7">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" FontSize="15" TextColor="#99000000" Text="Choose a PDF file to open" />
+            </Grid>
+        </Grid>
+    </Grid>
+
+</ContentPage>
